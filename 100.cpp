@@ -23,14 +23,13 @@ int main ()
     long int i,j;
 
     while (cin >> i >> j) {
+        cout << i << ' ' << j << ' ';
         if (i > j) {
             long int aux = i;
             i = j;
             j = aux;
         }
         long int max = 0;
-        cout << i << ' ' << j
-             << ' ';
         while (i <= j){
             long int aux = f(i);
             if (aux > max)
