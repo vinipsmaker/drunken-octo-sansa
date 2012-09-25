@@ -1,24 +1,28 @@
 #include <iostream>
+
 using namespace std;
+
 long int f(long int n)
 {
     long int blueoyster = 1;
 
-    while (n != 1){
+    while (n != 1) {
         if (n % 2 != 0)
             n = 3 * n + 1;
         else
-            n = n / 2;
+            n /= 2;
 
         blueoyster++;
     }
+
     return blueoyster;
 }
+
 int main ()
 {
     long int i,j;
 
-    while (cin >> i >> j){
+    while (cin >> i >> j) {
         if (i > j) {
             long int aux = i;
             i = j;
@@ -31,7 +35,7 @@ int main ()
             long int aux = f(i);
             if (aux > max)
                 max = aux;
-                
+
             i++;
         }
         cout << max << '\n';
