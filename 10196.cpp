@@ -46,7 +46,77 @@ pair<point, point> find_kings(const string & board)
     }
 }
 
-bool check(const string & board, point king)
+inline bool find_straight_lines(const string &board, char piece)
+{
+    // North
+    for (int i = king.second; i > 0; --i) {
+        if (p2i(board, king.first, i - 1) == piece)
+            return true;
+        else if (p2i(board, king.first, i - 1) != '.')
+            break;
+    }
+
+    // East
+    for (int i = king.first; i != 8; ++i) {
+        if (p2i(board, i, king.second) == piece)
+            return true;
+        else if (p2i(board, i, king.second) != '.')
+            break;
+    }
+
+    // South
+    for (int i = king.second; i != 8; ++i) {
+        if (p2i(board, king.first, i) == piece)
+            return true;
+        else if (p2i(board, king.first, i) != '.')
+            break;
+    }
+
+    // West
+    for (int i = king.first; i > 0; --i) {
+        if (p2i(board, i - 1, king.second) == piece)
+            return true;
+        else if (p2i(board, i - 1, king.second) != '.')
+            break;
+    }
+}
+
+inline bool find_diagonal_lines(const string &board, char piece)
+{
+    // West-north
+    for (int i = 0;king.first - i > 0 && king.second - i > 0;++i) {
+        if (p2i(board, king.first - i - 1, king.second - i - 1) == piece)
+            return true;
+        else if (p2i(board, king.first - i - 1, king.second - i - 1) != '.')
+            break;
+    }
+
+    // East-north
+    for (int i = 0;king.first + i != 8 && king.second - i > 0;++i) {
+        if (p2i(board, king.first + i, king.second - i - 1) == piece)
+            return true;
+        else if (p2i(board, king.first + i, king.second - i - 1) != '.')
+            break;
+    }
+
+    // East-south
+    for (int i = 0;king.first - i > 0 && king.second + i != 8;++i) {
+        if (p2i(board, king.first - i - 1, king.second + i) == piece)
+            return true;
+        else if (p2i(board, king.first - i - 1, king.second + i) != '.')
+            break;
+    }
+
+    // East-south
+    for (int i = 0;king.first + i != 8 && king.second + i != 8;++i) {
+        if (p2i(board, king.first + i, king.second + i) == piece)
+            return true;
+        else if (p2i(board, king.first + i, king.second + i) != '.')
+            break;
+    }
+}
+
+bool check(const string &board, point king)
 {
     // king == 'K' + offset
     // opposite == 'k' - offset
@@ -60,18 +130,18 @@ bool check(const string & board, point king)
             return true;
     }
 
-    // Rook - North
-    for (int i = king.second; i > 0; --i)
-    {
-        if (p2i(board, king.first, i) == 'r' - offset)
-        {
-            return true;
-        }
-        else if (p2i(board, king.first, i) != '.')
-        {
-            break;
-        }
-    }
+    // Rook
+    find_straight_lines(board, 'r' - offset);
+
+    // Bishop
+    find_diagonal_lines(board, 'b' - offset);
+
+    // Queen
+    find_straight_lines(board, 'q' - offset);
+    find_diagonal_lines(board, 'b' - offset);
+
+    // Knight
+    // TODO...
 }
 
 void work ()
