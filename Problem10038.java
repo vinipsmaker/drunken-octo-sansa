@@ -3,6 +3,7 @@ import static java.lang.Math.abs;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Problem10038 {
     public static void main(String args[]) {
@@ -10,8 +11,8 @@ public class Problem10038 {
         //int n = sc.nextInt();
         while(sc.hasNextInt()) {
             int[] v = new int[2];
-            Set<Integer> found = new HashSet<Integer>();
-			//List<Integer> found = new ArrayList<Integer>();
+            //Set<Integer> found = new HashSet<Integer>();
+			Set<Integer> found = new TreeSet<Integer>();
             boolean second = false;
             int n = sc.nextInt();
             for(int i = 0; i < n; i++) {
